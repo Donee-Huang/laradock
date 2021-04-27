@@ -14,7 +14,7 @@
 
 ARG PHP_VERSION=${PHP_VERSION}
 
-FROM laradock/workspace:2.2-${PHP_VERSION}
+FROM laradock/workspace:latest-${PHP_VERSION}
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -276,9 +276,7 @@ ARG PHP_VERSION=${PHP_VERSION}
 
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     # Install Php Redis extension
-    printf "\n" | pecl -q install -o -f redis && \
-    echo "extension=redis.so" >> /etc/php/${PHP_VERSION}/mods-available/redis.ini && \
-    phpenmod redis \
+    apt-get install -yqq php-redis \
 ;fi
 
 ###########################################################################
